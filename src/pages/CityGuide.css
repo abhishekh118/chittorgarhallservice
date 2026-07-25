@@ -1,0 +1,5 @@
+.city-guide-page .place-card { transition:.22s; }
+.city-guide-page .place-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+.city-guide-page .place-image { overflow:hidden; }
+.city-guide-page .place-image img { transition:transform .35s; }
+.city-guide-page .place-card:hover img { transform:scale(1.04); }

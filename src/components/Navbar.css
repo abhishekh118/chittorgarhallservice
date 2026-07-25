@@ -1,0 +1,5 @@
+.navbar { box-shadow: 0 1px 0 rgba(15,23,42,.04); }
+.nav-links a { transition: color .2s, background .2s; }
+.brand-cloud { transition: transform .2s; }
+.brand:hover .brand-cloud { transform: rotate(-4deg) scale(1.03); }
+@media (max-width:900px) { .nav-links { max-height: calc(100vh - 90px); overflow-y:auto; } }

@@ -1,18 +1,546 @@
-import { useEffect, useState } from "react";
-import { ArrowRight, BadgeCheck, BriefcaseBusiness, Clock3, LocateFixed, Search, ShieldCheck, Sparkles, Star, UserRound } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
+import {
+  ArrowRight,
+  BadgeCheck,
+  BriefcaseBusiness,
+  Clock3,
+  LocateFixed,
+  Search,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
+
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
+
 import API from "../api";
 import SectorCard from "../components/SectorCard";
+import "./Home.css";
 
-export default function Home(){
- const [sectors,setSectors]=useState([]),[notices,setNotices]=useState([]),[query,setQuery]=useState(""); const navigate=useNavigate();
- useEffect(()=>{Promise.all([API.get('/sectors'),API.get('/public/notices')]).then(([a,b])=>{setSectors(a.data);setNotices(b.data)}).catch(console.error)},[]);
- const filtered=sectors.filter(s=>s.name.toLowerCase().includes(query.toLowerCase()));
- const search=()=>{const match=filtered[0]; if(match) navigate(`/sector/${match.slug}`)};
- return <>
-  <section className="sky-hero"><div className="container sky-hero-grid"><div className="hero-copy"><span className="soft-badge"><Sparkles size={15}/> Chittorgarh's trusted local network</span><h1>Har zaroorat ke liye <span>right service, right nearby.</span></h1><p>Home repair, taxi, hotel, cafe, tutor, doctor aur daily needs—verified local providers ko compare karke easy booking karein.</p><div className="search-shell"><Search/><input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==='Enter'&&search()} placeholder="Aapko kaunsi service chahiye?"/><button onClick={search}>Search</button></div><div className="quick-links"><span>Popular:</span>{['Plumber','Taxi','Hotel','Electrician'].map(x=><button key={x} onClick={()=>setQuery(x)}>{x}</button>)}</div><div className="hero-action-row"><Link className="btn sky" to="/customer/register"><UserRound size={18}/> Book a Service</Link><Link className="btn white" to="/provider/register"><BriefcaseBusiness size={18}/> Grow Your Business</Link></div></div><div className="hero-visual"><div className="floating-card fc-one"><BadgeCheck/><div><b>Verified Providers</b><small>Admin-reviewed profiles</small></div></div><div className="service-orbit"><div className="orbit-main">CAS<small>All Services</small></div><span className="orb o1">🚕</span><span className="orb o2">🔧</span><span className="orb o3">🏨</span><span className="orb o4">☕</span><span className="orb o5">💡</span></div><div className="floating-card fc-two"><Star/><div><b>4.8 average rating</b><small>Local customer reviews</small></div></div></div></div><div className="container trust-row"><div><ShieldCheck/> Secure booking</div><div><LocateFixed/> Nearby providers</div><div><Clock3/> Quick response</div><div><BadgeCheck/> Verified profiles</div></div></section>
-  <section className="notice-zone"><div className="container"><div className="section-head"><div><span>City updates</span><h2>Latest notices & requirements</h2></div></div><div className="notice-grid">{(notices.length?notices:[{_id:'x',type:'Update',title:'Provider registrations are open',message:'Local professionals can create a business account and submit KYC for verification.'}]).slice(0,3).map(n=><article className="notice-card" key={n._id}><small>{n.type}</small><h3>{n.title}</h3><p>{n.message}</p><a>Read update <ArrowRight size={15}/></a></article>)}</div></div></section>
-  <section className="section" id="services"><div className="container"><div className="section-head"><div><span>Explore categories</span><h2>Services made simple</h2><p>Choose a category and compare nearby providers.</p></div><Link to="/important-help">View nearby services <ArrowRight size={17}/></Link></div><div className="sector-grid">{filtered.map(s=><SectorCard key={s._id} sector={s}/>)}</div></div></section>
-  <section className="journey-section"><div className="container journey-grid"><div className="journey-card customer"><div className="journey-icon"><UserRound/></div><span>For customers</span><h2>Need help today?</h2><p>Search, compare ratings, see transparent charges and securely book a local service.</p><Link to="/customer/register">Create customer account <ArrowRight/></Link></div><div className="journey-card provider"><div className="journey-icon"><BriefcaseBusiness/></div><span>For service providers</span><h2>Get more local customers</h2><p>Create your business profile, complete KYC and receive verified bookings online.</p><Link to="/provider/register">Register your business <ArrowRight/></Link></div></div></section>
- </>
+const popular = [
+  "Home Repair",
+  "Taxi",
+  "Hotels",
+  "Education",
+];
+
+export default function Home() {
+  const [sectors, setSectors] =
+    useState([]);
+
+  const [notices, setNotices] =
+    useState([]);
+
+  const [query, setQuery] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadHomeData() {
+      setLoading(true);
+      setError("");
+
+      try {
+        const [
+          sectorResponse,
+          noticeResponse,
+        ] = await Promise.all([
+          API.get("/sectors"),
+          API.get("/public/notices"),
+        ]);
+
+        if (!active) return;
+
+        const sectorData =
+          Array.isArray(
+            sectorResponse.data
+          )
+            ? sectorResponse.data
+            : [];
+
+        const noticeData =
+          Array.isArray(
+            noticeResponse.data
+          )
+            ? noticeResponse.data
+            : [];
+
+        setSectors(sectorData);
+        setNotices(noticeData);
+      } catch (requestError) {
+        if (!active) return;
+
+        console.error(
+          "Home data load error:",
+          requestError
+        );
+
+        setError(
+          requestError.response?.data
+            ?.message ||
+            "Services load nahi ho paayi. Backend connection check karein."
+        );
+
+        setSectors([]);
+        setNotices([]);
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadHomeData();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const filtered = useMemo(() => {
+    const value = query
+      .trim()
+      .toLowerCase();
+
+    if (!value) {
+      return sectors;
+    }
+
+    return sectors.filter((sector) =>
+      sector.name
+        ?.toLowerCase()
+        .includes(value)
+    );
+  }, [query, sectors]);
+
+  function scrollToServices() {
+    document
+      .getElementById("services")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+  }
+
+  function showAllServices() {
+    setQuery("");
+
+    window.setTimeout(() => {
+      scrollToServices();
+    }, 0);
+  }
+
+  function searchService(
+    value = query
+  ) {
+    const term = String(value)
+      .trim()
+      .toLowerCase();
+
+    if (!term) {
+      showAllServices();
+      return;
+    }
+
+    const exactMatch =
+      sectors.find(
+        (sector) =>
+          sector.name
+            ?.toLowerCase() === term ||
+          sector.slug
+            ?.toLowerCase() ===
+            term.replace(/\s+/g, "-")
+      );
+
+    const partialMatch =
+      sectors.find((sector) =>
+        sector.name
+          ?.toLowerCase()
+          .includes(term)
+      );
+
+    const match =
+      exactMatch || partialMatch;
+
+    if (match?.slug) {
+      navigate(
+        `/sector/${match.slug}`
+      );
+
+      return;
+    }
+
+    scrollToServices();
+  }
+
+  const previewSectors =
+    sectors.slice(0, 4);
+
+  return (
+    <>
+      <section className="home-hero">
+        <div className="container home-hero-grid">
+          <div className="home-copy">
+            <span className="home-kicker">
+              <BadgeCheck size={16} />
+              Trusted local service
+              platform
+            </span>
+
+            <h1>
+              Chittorgarh ki har
+              service,{" "}
+              <span>ek hi jagah.</span>
+            </h1>
+
+            <p>
+              Verified professionals ko
+              search aur compare karein.
+              Transparent pricing ke
+              saath apni service safely
+              book karein.
+            </p>
+
+            <div className="home-search">
+              <Search size={21} />
+
+              <input
+                type="search"
+                value={query}
+                onChange={(event) =>
+                  setQuery(
+                    event.target.value
+                  )
+                }
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "Enter"
+                  ) {
+                    searchService();
+                  }
+                }}
+                placeholder="Plumber, taxi, hotel, tutor..."
+                aria-label="Search services"
+              />
+
+              <button
+                type="button"
+                onClick={() =>
+                  searchService()
+                }
+              >
+                Search
+              </button>
+            </div>
+
+            <div className="home-popular">
+              <span>Popular:</span>
+
+              {popular.map((item) => (
+                <button
+                  type="button"
+                  key={item}
+                  onClick={() => {
+                    setQuery(item);
+                    searchService(item);
+                  }}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <div className="home-actions">
+              <Link
+                className="btn primary"
+                to="/customer/register"
+              >
+                <UserRound size={18} />
+                Book a Service
+              </Link>
+
+              <Link
+                className="btn ghost"
+                to="/provider/register"
+              >
+                <BriefcaseBusiness
+                  size={18}
+                />
+                List Your Business
+              </Link>
+            </div>
+          </div>
+
+          <aside className="home-preview">
+            <div className="home-preview-head">
+              <strong>
+                <BriefcaseBusiness
+                  size={20}
+                />
+                All Services
+              </strong>
+
+              <span>Verified</span>
+            </div>
+
+            <div className="home-preview-list">
+              {loading ? (
+                <div className="preview-message">
+                  Loading services...
+                </div>
+              ) : previewSectors.length ? (
+                previewSectors.map(
+                  (sector) => (
+                    <Link
+                      className="home-preview-item"
+                      key={sector._id}
+                      to={`/sector/${sector.slug}`}
+                    >
+                      <span>
+                        {sector.icon ||
+                          "🔴"}
+                      </span>
+
+                      <b>{sector.name}</b>
+
+                      <ArrowRight
+                        size={17}
+                      />
+                    </Link>
+                  )
+                )
+              ) : (
+                <div className="preview-message">
+                  Services available nahi
+                  hain.
+                </div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={showAllServices}
+            >
+              Explore all services
+              <ArrowRight size={17} />
+            </button>
+          </aside>
+        </div>
+
+        <div className="container home-trust">
+          <div>
+            <ShieldCheck size={18} />
+            Secure booking
+          </div>
+
+          <div>
+            <LocateFixed size={18} />
+            Nearby providers
+          </div>
+
+          <div>
+            <Clock3 size={18} />
+            Quick response
+          </div>
+
+          <div>
+            <BadgeCheck size={18} />
+            Verified profiles
+          </div>
+        </div>
+      </section>
+
+      <section className="notice-zone">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span>City updates</span>
+
+              <h2>Latest notices</h2>
+
+              <p>
+                Important service and
+                community updates.
+              </p>
+            </div>
+          </div>
+
+          {notices.length ? (
+            <div className="notice-grid">
+              {notices
+                .slice(0, 3)
+                .map((notice) => (
+                  <article
+                    className="notice-card"
+                    key={notice._id}
+                  >
+                    <small>
+                      {notice.type ||
+                        "Update"}
+                    </small>
+
+                    <h3>
+                      {notice.title}
+                    </h3>
+
+                    <p>
+                      {notice.message}
+                    </p>
+                  </article>
+                ))}
+            </div>
+          ) : (
+            !loading && (
+              <div className="home-empty">
+                <h3>
+                  Koi active notice nahi
+                  hai
+                </h3>
+
+                <p>
+                  New city updates yahan
+                  dikhengi.
+                </p>
+              </div>
+            )
+          )}
+        </div>
+      </section>
+
+      <section
+        className="section"
+        id="services"
+      >
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span>
+                Explore categories
+              </span>
+
+              <h2>
+                Find the right service
+              </h2>
+
+              <p>
+                Choose a category and
+                compare nearby
+                providers.
+              </p>
+            </div>
+
+            <Link to="/important-help">
+              Nearby services
+              <ArrowRight size={17} />
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="home-empty">
+              Loading services...
+            </div>
+          ) : error ? (
+            <div className="home-empty error">
+              <h3>
+                Services load nahi hui
+              </h3>
+
+              <p>{error}</p>
+            </div>
+          ) : filtered.length ? (
+            <div className="sector-grid">
+              {filtered.map(
+                (sector) => (
+                  <SectorCard
+                    key={sector._id}
+                    sector={sector}
+                  />
+                )
+              )}
+            </div>
+          ) : (
+            <div className="home-empty">
+              <h3>
+                Service not found
+              </h3>
+
+              <p>
+                Koi dusra service name
+                search karein.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="journey-section">
+        <div className="container journey-grid">
+          <article className="journey-card customer">
+            <div className="journey-icon">
+              <UserRound />
+            </div>
+
+            <span>For customers</span>
+
+            <h2>
+              Need a local service?
+            </h2>
+
+            <p>
+              Verified providers compare
+              karein aur transparent
+              charges ke saath service
+              book karein.
+            </p>
+
+            <Link to="/customer/register">
+              Create customer account
+              <ArrowRight size={19} />
+            </Link>
+          </article>
+
+          <article className="journey-card provider">
+            <div className="journey-icon">
+              <BriefcaseBusiness />
+            </div>
+
+            <span>For providers</span>
+
+            <h2>
+              Grow your local business
+            </h2>
+
+            <p>
+              Business profile create
+              karein, KYC complete karein
+              aur online bookings
+              receive karein.
+            </p>
+
+            <Link to="/provider/register">
+              Register your business
+              <ArrowRight size={19} />
+            </Link>
+          </article>
+        </div>
+      </section>
+    </>
+  );
 }

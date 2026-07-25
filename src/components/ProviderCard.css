@@ -1,0 +1,5 @@
+.provider-card { height:100%; display:flex; flex-direction:column; }
+.provider-card .skills { margin-bottom:4px; }
+.provider-card .card-actions { margin-top:auto; padding-top:18px; }
+.provider-top > div:nth-child(2) { min-width:0; }
+.provider-top h3 { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }

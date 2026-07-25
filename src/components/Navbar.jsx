@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { BriefcaseBusiness, ChevronDown, Menu, Phone, UserRound, X } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import "./Navbar.css";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);

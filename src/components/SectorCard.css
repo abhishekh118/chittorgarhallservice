@@ -1,0 +1,3 @@
+.sector-card { isolation:isolate; }
+.sector-card::after { content:""; position:absolute; inset:auto 0 0; height:3px; border-radius:0 0 16px 16px; background:var(--primary); transform:scaleX(0); transform-origin:left; transition:.22s; }
+.sector-card:hover::after { transform:scaleX(1); }

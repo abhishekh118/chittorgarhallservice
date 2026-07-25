@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, MessageCircle, Mail } from "lucide-react";
+import "./Footer.css";
 
 export default function Footer() {
   const phone = import.meta.env.VITE_CALL_NUMBER || "6367697913";

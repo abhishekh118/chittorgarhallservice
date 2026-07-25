@@ -1,0 +1,4 @@
+.footer-grid > div:first-child { max-width: 420px; }
+.footer-grid h4 { margin-bottom: 16px; }
+.footer-grid a { width: fit-content; transition: color .2s, transform .2s; }
+.footer-grid a:hover { transform: translateX(3px); }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api";
 import { useAuth } from "../context/AuthContext";
+import "./Login.css";
 
 export default function Login() {
   const [form, setForm] = useState({ emailOrPhone: "", password: "" });
@@ -22,7 +23,7 @@ export default function Login() {
   };
 
   return (
-    <section className="auth-section">
+    <section className="auth-section legacy-login-page">
       <form className="auth-card" onSubmit={submit}>
         <span className="eyebrow">Welcome back</span>
         <h1>User / Provider Login</h1>

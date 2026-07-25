@@ -1,3 +1,5 @@
+import "./KycPolicy.css";
+
 export default function KycPolicy() {
   return (
     <section className="section legal-page">

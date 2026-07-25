@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
 import { useAuth } from "../context/AuthContext";
+import "./Register.css";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -29,7 +30,7 @@ export default function Register() {
   };
 
   return (
-    <section className="auth-section">
+    <section className="auth-section legacy-register-page">
       <form className="auth-card wide" onSubmit={submit}>
         <span className="eyebrow">Create account</span>
         <h1>Customer or Service Provider</h1>

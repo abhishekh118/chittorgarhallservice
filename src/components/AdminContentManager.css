@@ -1,0 +1,279 @@
+.admin-content-manager {
+  margin-top: 28px;
+}
+
+.content-heading {
+  margin-bottom: 18px;
+}
+
+.content-heading h2 {
+  margin: 5px 0 6px;
+}
+
+.content-heading p {
+  margin: 0;
+  color: #64748b;
+}
+
+.content-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.content-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #dbe4ee;
+  background: #fff;
+  color: #334155;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.content-tabs button:hover,
+.content-tabs button.active {
+  color: #fff;
+  border-color: #dc2626;
+  background: #dc2626;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(280px, 390px)
+    minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.content-form,
+.content-list {
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.content-form {
+  display: grid;
+  gap: 15px;
+  padding: 20px;
+  position: sticky;
+  top: 90px;
+}
+
+.content-form-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-form-heading h3 {
+  margin: 0;
+}
+
+.content-form label {
+  display: grid;
+  gap: 7px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.content-form input,
+.content-form select,
+.content-form textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 11px 12px;
+  color: #0f172a;
+  font: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.content-form input:focus,
+.content-form select:focus,
+.content-form textarea:focus {
+  border-color: #dc2626;
+  box-shadow:
+    0 0 0 3px
+    rgba(220, 38, 38, 0.1);
+}
+
+.content-form textarea {
+  resize: vertical;
+}
+
+.common-fields {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: end;
+}
+
+.content-form .checkbox-field {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  min-height: 44px;
+}
+
+.checkbox-field input {
+  width: 18px;
+  height: 18px;
+}
+
+.content-list {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.content-list-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.content-list-card.inactive {
+  opacity: 0.6;
+  background: #f8fafc;
+}
+
+.content-list-card h3 {
+  margin: 3px 0 5px;
+  font-size: 17px;
+}
+
+.content-list-card p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.55;
+}
+
+.content-list-card small {
+  color: #dc2626;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.content-list-image,
+.place-preview {
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.content-list-image {
+  width: 82px;
+  height: 72px;
+}
+
+.place-preview {
+  width: 100%;
+  height: 180px;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.icon-button.edit {
+  color: #0369a1;
+  background: #e0f2fe;
+}
+
+.icon-button.delete {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.item-active,
+.item-inactive {
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.item-active {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.item-inactive {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.content-empty,
+.content-loading {
+  padding: 30px;
+  text-align: center;
+  color: #64748b;
+}
+
+.content-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+@media (max-width: 900px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .content-form {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .content-tabs {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .content-tabs button {
+    justify-content: center;
+  }
+
+  .content-list-card {
+    grid-template-columns: 1fr;
+  }
+
+  .content-list-image {
+    width: 100%;
+    height: 170px;
+  }
+
+  .item-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,33 @@
+.kyc-page .panel-form { margin-top:18px; }
+.kyc-page .file-grid > div { padding:12px; border:1px solid var(--line); border-radius:11px; background:#f8fafc; }
+.kyc-page .file-grid label { margin-top:0; }
+.kyc-page .form-actions { padding-top:8px; }
+.profile-required-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 25px;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  background: #eff6ff;
+}
+
+.profile-required-card > svg {
+  flex: 0 0 auto;
+  color: var(--primary);
+}
+
+.profile-required-card h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.profile-required-card p {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 560px) {
+  .profile-required-card {
+    flex-direction: column;
+  }
+}

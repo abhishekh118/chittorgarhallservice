@@ -1,0 +1,4 @@
+.onboarding-page .panel-form { padding:36px; }
+.onboarding-page .form-actions { justify-content:flex-end; padding-top:8px; }
+.onboarding-page textarea { min-height:110px; }
+@media(max-width:560px){.onboarding-page .panel-form{padding:22px}.onboarding-page .form-actions .btn{width:100%}}

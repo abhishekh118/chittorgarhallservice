@@ -4,6 +4,7 @@ import API from "../api";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { loadRazorpayCheckout } from "../utils/razorpay";
+import "./ProviderCard.css";
 
 export default function ProviderCard({ provider }) {
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api";
+import "./ProviderOnboarding.css";
 
 export default function ProviderOnboarding() {
   const [sectors, setSectors] = useState([]);
@@ -61,7 +62,7 @@ export default function ProviderOnboarding() {
   };
 
   return (
-    <section className="section">
+    <section className="section onboarding-page">
       <div className="container">
         <form className="panel-form" onSubmit={submit}>
           <span className="eyebrow">Work with us</span>

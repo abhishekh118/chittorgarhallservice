@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../api";
 import { useAuth } from "../context/AuthContext";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -9,14 +10,16 @@ export default function Dashboard() {
   const [provider, setProvider] = useState(null);
 
   useEffect(() => {
-    API.get("/bookings/mine").then((res) => setBookings(res.data));
+    API.get("/bookings/mine")
+      .then((res) => setBookings(res.data?.length ? res.data : demoData.bookings))
+      .catch(() => setBookings(demoData.bookings));
     if (user?.role === "provider") {
       API.get("/providers/me").then((res) => setProvider(res.data));
     }
   }, [user]);
 
   return (
-    <section className="section">
+    <section className="section dashboard-page">
       <div className="container">
         <div className="page-banner">
           <span className="eyebrow">My account</span>

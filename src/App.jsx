@@ -16,7 +16,7 @@ import Admin from "./pages/Admin";
 import KycVerification from "./pages/KycVerification";
 import KycPolicy from "./pages/KycPolicy";
 import { useAuth } from "./context/AuthContext";
-
+import "./App.css";
 function Protected({ children, role }) {
   const { user } = useAuth();
   if (!user) return <Navigate to={role === "provider" ? "/provider/login" : "/customer/login"} replace />;

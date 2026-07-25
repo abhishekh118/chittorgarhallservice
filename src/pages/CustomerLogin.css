@@ -1,0 +1,2 @@
+.new-auth-section:not(.provider-auth) .auth-art { outline:1px solid rgba(255,255,255,.16); outline-offset:-10px; }
+.new-auth-section:not(.provider-auth) .new-auth-card { border-top:4px solid var(--primary); }

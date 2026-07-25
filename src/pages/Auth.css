@@ -1,0 +1,4 @@
+.auth-card-note { margin-top:0; font-size:14px; }
+.auth-card .btn, .new-auth-card .btn { min-height:48px; }
+.new-auth-card { align-self:center; }
+.new-auth-card input { background:#fbfdff; }
