@@ -16,6 +16,8 @@ import Admin from "./pages/Admin";
 import KycVerification from "./pages/KycVerification";
 import KycPolicy from "./pages/KycPolicy";
 import { useAuth } from "./context/AuthContext";
+import Marketplace from "./pages/Marketplace";
+import CreateMarketplaceListing from "./pages/CreateMarketplaceListing";
 import "./App.css";
 function Protected({ children, role }) {
   const { user } = useAuth();
@@ -42,5 +44,18 @@ export default function App() {
     <Route path="/groups" element={<Protected><Groups /></Protected>} />
     <Route path="/dashboard" element={<Protected><Dashboard /></Protected>} />
     <Route path="/admin" element={<Protected role="admin"><Admin /></Protected>} />
+    <Route
+  path="/marketplace"
+  element={<Marketplace />}
+/>
+
+<Route
+  path="/provider/marketplace/new"
+  element={
+    <Protected allowedRoles={["provider", "admin"]}>
+      <CreateMarketplaceListing />
+    </Protected>
+  }
+/>
   </Routes></main><Footer /></div>;
 }

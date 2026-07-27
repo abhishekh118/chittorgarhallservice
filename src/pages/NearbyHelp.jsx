@@ -3,6 +3,10 @@ import {
   useState,
 } from "react";
 
+import NearbyMarketplace from
+  "../components/NearbyMarketplace";
+
+import "./Marketplace.css";
 import {
   LocateFixed,
   MapPin,
@@ -489,6 +493,7 @@ export default function NearbyHelp() {
                         }
                       </span>
                     )}
+                    <NearbyMarketplace />
                   </div>
                 )}
               </div>

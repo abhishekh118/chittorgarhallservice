@@ -23,7 +23,10 @@ import {
 import API from "../api";
 import SectorCard from "../components/SectorCard";
 import "./Home.css";
+import MarketplaceHomeSections from
+  "../components/MarketplaceHomeSections";
 
+import "./Marketplace.css";
 const popular = [
   "Home Repair",
   "Taxi",
@@ -94,7 +97,7 @@ export default function Home() {
         setError(
           requestError.response?.data
             ?.message ||
-            "Services load nahi ho paayi. Backend connection check karein."
+          "Services load nahi ho paayi. Backend connection check karein."
         );
 
         setSectors([]);
@@ -165,7 +168,7 @@ export default function Home() {
             ?.toLowerCase() === term ||
           sector.slug
             ?.toLowerCase() ===
-            term.replace(/\s+/g, "-")
+          term.replace(/\s+/g, "-")
       );
 
     const partialMatch =
@@ -489,7 +492,7 @@ export default function Home() {
           )}
         </div>
       </section>
-
+<MarketplaceHomeSections />
       <section className="journey-section">
         <div className="container journey-grid">
           <article className="journey-card customer">

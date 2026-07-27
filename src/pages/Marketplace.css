@@ -1,0 +1,173 @@
+.marketplace-page{background:#f7fafc;min-height:75vh}.market-toolbar{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:28px 0}.market-tabs{display:flex;gap:8px;flex-wrap:wrap}.market-tabs button{border:1px solid #d9e4ec;background:#fff;border-radius:999px;padding:11px 16px;font-weight:700;cursor:pointer}.market-tabs button.active{color:#fff;background:#0b79d0;border-color:#0b79d0}.market-toolbar form,.nearby-market-form{display:flex;gap:10px}.market-toolbar input,.nearby-market-form input,.nearby-market-form select{min-height:46px;border:1px solid #cad9e3;border-radius:10px;padding:0 13px;background:#fff}.market-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.market-card{background:#fff;border:1px solid #e0eaf0;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(15,54,80,.07)}.market-media{height:220px;position:relative;background:#eaf1f5}.market-media img,.market-media video{width:100%;height:100%;object-fit:cover}.market-type,.video-badge{position:absolute;top:12px;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:800}.market-type{left:12px;background:#fff}.video-badge{right:12px;background:#101b26;color:#fff;display:flex;align-items:center;gap:4px}.market-body{padding:18px}.market-body h3{margin:0 0 8px}.market-body p{color:#60717e;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.market-price{font-size:22px;color:#d53b31}.market-location,.market-foot span{display:flex;align-items:center;gap:5px}.market-location{color:#62727e;margin:14px 0}.market-foot{border-top:1px solid #edf1f4;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}.market-foot span{font-size:12px;color:#148256;font-weight:700}.listing-form{max-width:920px;margin:auto}.listing-form small{display:block;color:#62727e;margin-top:6px}.home-market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.home-market-card{border:1px solid #dce8ef;background:#fff;border-radius:18px;padding:22px;color:inherit;text-decoration:none;display:grid;gap:14px;transition:.2s}.home-market-card:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(20,74,109,.1)}.home-market-card h3,.home-market-card p{margin:0}.home-market-card p{color:#60717e}.home-market-card>span{display:flex;gap:7px;align-items:center;color:#0b79d0;font-weight:800}.home-market-business{margin-top:18px;padding:20px 24px;background:#eaf7ff;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:18px}.home-market-business p{margin:5px 0 0}.nearby-marketplace{margin-top:40px;padding-top:35px;border-top:1px solid #dde7ed}.nearby-market-results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.nearby-market-results a{display:flex;gap:10px;padding:10px;border:1px solid #dde7ed;border-radius:12px;text-decoration:none;color:inherit;background:#fff}.nearby-market-results img{width:70px;height:60px;object-fit:cover;border-radius:8px}.nearby-market-results div{display:flex;flex-direction:column;gap:5px}.admin-market-list{display:grid;gap:12px}.admin-market-list article{display:grid;grid-template-columns:80px 1fr auto auto;align-items:center;gap:14px;padding:12px;border:1px solid #dfe8ed;border-radius:12px}.admin-market-list img,.admin-market-list video{width:80px;height:65px;object-fit:cover;border-radius:8px}.admin-market-list article>div:not(.admin-market-actions){display:flex;flex-direction:column;gap:4px}.admin-market-actions{display:flex;gap:7px}.status{padding:5px 9px;border-radius:99px;background:#edf2f5;text-transform:capitalize}.status.approved{background:#dcfce7;color:#166534}.status.rejected{background:#fee2e2;color:#991b1b}@media(max-width:850px){.market-grid,.home-market-grid{grid-template-columns:repeat(2,1fr)}.market-toolbar,.home-market-business{align-items:stretch;flex-direction:column}.admin-market-list article{grid-template-columns:65px 1fr}.admin-market-list img,.admin-market-list video{width:65px}.admin-market-list .status,.admin-market-actions{grid-column:2}}@media(max-width:560px){.market-grid,.home-market-grid,.nearby-market-results{grid-template-columns:1fr}.market-toolbar form,.nearby-market-form{flex-direction:column}.market-media{height:210px}}
+.seller-contact-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 18px 0 24px;
+  padding: 18px 55px 18px 20px;
+  border: 1px solid #b9dbf5;
+  border-radius: 16px;
+  background: #eff8ff;
+  box-shadow: 0 12px 30px
+    rgba(11, 121, 208, 0.08);
+}
+
+.seller-contact-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.seller-contact-icon {
+  display: grid;
+  flex: 0 0 52px;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  color: #ffffff;
+  background: #0b79d0;
+}
+
+.seller-contact-info {
+  flex: 1;
+}
+
+.seller-contact-info span {
+  color: #15805c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.seller-contact-info h3 {
+  margin: 3px 0;
+}
+
+.seller-phone {
+  color: #0b79d0;
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.seller-contact-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.seller-contact-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+}
+
+.whatsapp-btn {
+  color: #ffffff;
+  background: #159447;
+}
+
+@media (max-width: 650px) {
+  .seller-contact-box {
+    align-items: flex-start;
+    padding: 18px;
+    padding-top: 50px;
+    flex-direction: column;
+  }
+
+  .seller-contact-info,
+  .seller-contact-actions {
+    width: 100%;
+  }
+
+  .seller-contact-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.card-seller-contact {
+  position: relative;
+  margin-top: 16px;
+  padding: 15px;
+  border: 1px solid #b9dcf5;
+  border-radius: 13px;
+  background: #eff8ff;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-seller-contact > span {
+  color: #15805c;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.card-seller-contact > strong {
+  padding-right: 30px;
+  font-size: 17px;
+}
+
+.contact-phone {
+  width: fit-content;
+  color: #0b79d0;
+  font-size: 17px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.card-contact-close {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #334b5c;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.card-contact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.card-contact-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 42px;
+  text-decoration: none;
+}
+
+.card-contact-actions .whatsapp {
+  color: #ffffff;
+  background: #159447;
+}
+
+.card-contact-error {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 9px;
+  color: #991b1b;
+  background: #fee2e2;
+  font-size: 13px;
+}

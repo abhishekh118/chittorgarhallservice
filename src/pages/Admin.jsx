@@ -4,6 +4,8 @@ import {
   useState,
 } from "react";
 
+import AdminMarketplace from
+  "../components/AdminMarketplace";
 import {
   ExternalLink,
   LoaderCircle,
@@ -426,7 +428,7 @@ export default function Admin() {
             </table>
           </div>
         </div>
-
+<AdminMarketplace />
         <div className="panel">
           <h2>All Providers</h2>
 <AdminContentManager />
